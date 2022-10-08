@@ -25,6 +25,7 @@ public class SignInActivity extends AppCompatActivity {
     private Button signInBtn;
     private CheckedTextView forgotPassword, signUp;
     private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +36,7 @@ public class SignInActivity extends AppCompatActivity {
         this.forgotPassword = findViewById(R.id.forgotPassBtn);
         this.signUp = findViewById(R.id.signUpActivityBtn);
         this.mAuth = FirebaseAuth.getInstance();
+
         try {
             this.signInBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -43,25 +45,26 @@ public class SignInActivity extends AppCompatActivity {
                     String password = passwordText.getText().toString().trim();
                     if (email.isEmpty() && password.isEmpty()) {
                         Toast.makeText(getApplicationContext(),"Rellene todos los campos",Toast.LENGTH_SHORT).show();
-                    } else {
-                        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    Intent intent = new Intent(getApplicationContext(),MainNavigationDrawerActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                } else {
-                                    Toast.makeText(getApplicationContext(),"Usuario o Contraseña incorrecto",Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+                        return;
                     }
+                    mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Intent intent = new Intent(getApplicationContext(),MainNavigationDrawerActivity.class);
+                                startActivity(intent);
+                                finish();
+                                return;
+                            }
+                            Toast.makeText(getApplicationContext(),"Usuario o Contraseña incorrecto",Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             });
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_SHORT).show();
         }
+
         this.signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,12 +74,11 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     protected void onStart(){
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            mAuth.signOut();
-        }
+        if(currentUser != null) mAuth.signOut();
     }
 }

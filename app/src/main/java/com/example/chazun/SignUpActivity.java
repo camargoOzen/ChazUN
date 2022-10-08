@@ -54,30 +54,30 @@ public class SignUpActivity extends AppCompatActivity {
                     String rePassword = rePasswordText.getText().toString().trim();
                     //Se comprueba que los campos obligatorios contengan información
                     if (email.isEmpty() || password.isEmpty() || rePassword.isEmpty() || !termBox.isChecked()) {
-                        Toast.makeText(getApplicationContext(),"Rellene todos los campos",Toast.LENGTH_SHORT).show();
-                    } else {
-                        if (password.equals(rePassword)) {
-                            mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        Intent back = new Intent(getApplicationContext(),SignInActivity.class);
-                                        startActivity(back);
-                                        finish();
-                                        Toast.makeText(getApplicationContext(),"¡Registro exitoso!",Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(getApplicationContext(),"Error registro",Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                        } else {
-                            rePasswordText.setError("Las contraseñas no coinciden");
-                        }
+                        Toast.makeText(getApplicationContext(), "Rellene todos los campos", Toast.LENGTH_SHORT).show();
+                        return;
                     }
+                    if (!password.equals(rePassword)) {
+                        rePasswordText.setError("Las contraseñas no coinciden");
+                        return;
+                    }
+                    mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Intent back = new Intent(getApplicationContext(),SignInActivity.class);
+                                startActivity(back);
+                                finish();
+                                Toast.makeText(getApplicationContext(),"¡Registro exitoso!",Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            Toast.makeText(getApplicationContext(),"Error registro",Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             });
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_SHORT).show();
         }
         this.backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,8 +93,6 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            mAuth.signOut();
-        }
+        if(currentUser != null) mAuth.signOut();
     }
 }
