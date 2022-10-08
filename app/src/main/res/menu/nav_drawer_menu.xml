@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:title="Main">
+    <menu>
+        <item
+            android:id="@+id/homeMenu"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="Home"></item>
+        <item
+            android:id="@+id/favoriteMenu"
+            android:icon="@drawable/ic_baseline_favorite_24"
+            android:title="Favorite"></item>
+        <item
+            android:id="@+id/recomendationMenu"
+            android:icon="@drawable/ic_baseline_sentiment_very_satisfied_24"
+            android:title="Recomendations"></item>
+    </menu>
+</item>
+    <item android:title="Others">
+        <menu>
+            <item
+                android:id="@+id/settingMenu"
+                android:icon="@drawable/ic_baseline_settings_24"
+                android:title="Settings"></item>
+            <item
+                android:id="@+id/LogOutMenu"
+                android:icon="@drawable/ic_baseline_logout_24"
+                android:title="Log Out"></item>
+        </menu>
+    </item>
+</menu>

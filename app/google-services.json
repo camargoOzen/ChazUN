@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "537448235869",
+    "project_id": "chazun-7b40b",
+    "storage_bucket": "chazun-7b40b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537448235869:android:0004797fd7f8db451b1eb4",
+        "android_client_info": {
+          "package_name": "com.example.chazun"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "537448235869-se47oganinvdv5io6ehtc4jlffd61gn8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpY2XnT664pOc1JFuY_5NK6EmQoZHHouM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "537448235869-se47oganinvdv5io6ehtc4jlffd61gn8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
